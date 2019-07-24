@@ -15,7 +15,7 @@ for (i = 0; i < list.length; i++) {
   }
 }
 
-let countryName = dataRow[1].slice(0, 1);
+let countryName = dataRow[1].slice(1, 0);
 let yearList = dataRow[0].slice(1);
 let dataList = dataRow[1].slice(1, 12);
 let numberList = [];
@@ -34,7 +34,7 @@ var myBarChart = new Chart(ctx, {
       {
         label: countryName,
         data: numberList,
-        borderWidth: 1,
+        borderWidth: 1.5,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -50,5 +50,73 @@ var myBarChart = new Chart(ctx, {
         ]
       }
     ]
+  },
+  options: {
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            reverse: true
+          }
+        }
+      ]
+    }
   }
 });
+
+// -------------------------- graph 2 ---------------------------------------------------------------------//
+
+var table = document.getElementById("table2");
+var tableLength = table.rows.length;
+var data = { labels: [], country: [], area: [] };
+
+/*for (var i = 1; i < tableLength; i++) {
+  data.labels.push(table.rows[i].cells[1].innerText);
+  data.country.push(table.rows[i].cells[2].innerText.replace(",", ""));
+  data.area.push(table.rows[i].cells[3].innerText);
+}*/
+
+/*var canvas = document.getElementById("chartInfo"); //calling canvas from html
+var ctx = canvas.getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: data.labels,
+    datasets: [
+      {
+        data: data.country,
+        backgroundColor: [
+          "#64B5F6",
+          "#FFD54F",
+          "#2196F3",
+          "#FFC107",
+          "#1976D2",
+          "#FFA000",
+          "#0D47A1"
+        ],
+        hoverBackgroundColor: [
+          "#B2EBF2",
+          "#FFCCBC",
+          "#4DD0E1",
+          "#FF8A65",
+          "#00BCD4",
+          "#FF5722",
+          "#0097A7"
+        ]
+      }
+    ]
+  },
+  options: {
+    legend: {
+      display: true,
+      position: "right"
+    }
+  }
+});*/
