@@ -1,3 +1,5 @@
+// ------------------- graph 1 -------------------------//
+
 let header1 = document.getElementsByTagName("h3")[0];
 let canvas = document.createElement("canvas");
 canvas.id = "myCanvas";
@@ -56,7 +58,8 @@ var myBarChart = new Chart(ctx, {
       xAxes: [
         {
           ticks: {
-            beginAtZero: true
+            max: 7000,
+            min: 0
           }
         }
       ],
@@ -73,50 +76,11 @@ var myBarChart = new Chart(ctx, {
 
 // -------------------------- graph 2 ---------------------------------------------------------------------//
 
-var table = document.getElementById("table2");
-var tableLength = table.rows.length;
-var data = { labels: [], country: [], area: [] };
+// display chart
 
-/*for (var i = 1; i < tableLength; i++) {
-  data.labels.push(table.rows[i].cells[1].innerText);
-  data.country.push(table.rows[i].cells[2].innerText.replace(",", ""));
-  data.area.push(table.rows[i].cells[3].innerText);
-}*/
+let table2 = document.getElementById("table2");
+let canvas2 = document.createElement("canvas");
+canvas2.id = "homicidesChart";
+table2.parentNode.insertBefore(canvas2, table2);
 
-/*var canvas = document.getElementById("chartInfo"); //calling canvas from html
-var ctx = canvas.getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: data.labels,
-    datasets: [
-      {
-        data: data.country,
-        backgroundColor: [
-          "#64B5F6",
-          "#FFD54F",
-          "#2196F3",
-          "#FFC107",
-          "#1976D2",
-          "#FFA000",
-          "#0D47A1"
-        ],
-        hoverBackgroundColor: [
-          "#B2EBF2",
-          "#FFCCBC",
-          "#4DD0E1",
-          "#FF8A65",
-          "#00BCD4",
-          "#FF5722",
-          "#0097A7"
-        ]
-      }
-    ]
-  },
-  options: {
-    legend: {
-      display: true,
-      position: "right"
-    }
-  }
-});*/
+console.log(canvas2);
