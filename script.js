@@ -76,11 +76,86 @@ var myBarChart = new Chart(ctx, {
 
 // -------------------------- graph 2 ---------------------------------------------------------------------//
 
-// display chart
+// get chart
 
 let table2 = document.getElementById("table2");
 let canvas2 = document.createElement("canvas");
 canvas2.id = "homicidesChart";
 table2.parentNode.insertBefore(canvas2, table2);
 
-console.log(canvas2);
+// number of prisoners and country list arrays
+
+let prisoners /*countryStats2*/ = {};
+let list2Country = [];
+
+// table rows
+
+for (var i = 1; i < table2.rows.length; i++) {
+  let Country = table2.rows[i].cells[1].innerHTML;
+  let years0709 /*list07Till09*/ = table2.rows[i].cells[2].innerHTML;
+  let years1012 /*list10Till12*/ = table2.rows[i].cells[3].innerHTML;
+
+  let prisoners = {
+    country: Country,
+    year07_09: years0709 /*list07Till09*/,
+    year10_12: years1012 /*list10Till12*/
+  };
+
+  list2Country.push(prisoners);
+}
+
+// array to get all the info for chart
+
+let countryData2 = [];
+let listTill09 = [];
+let listTill12 = [];
+
+for (j = 0; j < list2Country.length; j++) {
+  country = list2Country[j].country;
+  list2Country[7].country = "Angleterreet - paysdeGalles(UK)";
+  year07_09 = list2Country[j].year07_09;
+  year10_12 = list2Country[j].year10_12;
+
+  countryData2.push(country);
+  listTill09.push(list2Country[j].year07_09);
+  listTill12.push(list2Country[j].year10_12);
+}
+
+// info to chart
+
+var ctx = document.getElementById("homicidesChart").getContext("2d");
+var homicidesChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: countryData2,
+    datasets: [
+      {
+        label: "2007–09",
+        data: listTill09,
+        backgroundColor: "#865DE8",
+        fill: false,
+        borderColor: "#865DE8",
+        borderWidth: 2
+      },
+      {
+        label: "2010–12",
+        data: listTill12,
+        backgroundColor: "#FF04AD",
+        fill: false,
+        borderColor: "#FF04AD",
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
+  }
+});
