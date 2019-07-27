@@ -112,6 +112,7 @@ let listTill12 = [];
 
 for (j = 0; j < list2Country.length; j++) {
   country = list2Country[j].country;
+  // replace error with a correct string
   list2Country[7].country = "Angleterreet - paysdeGalles(UK)";
   year07_09 = list2Country[j].year07_09;
   year10_12 = list2Country[j].year10_12;
@@ -132,18 +133,18 @@ var homicidesChart = new Chart(ctx, {
       {
         label: "2007–09",
         data: listTill09,
-        backgroundColor: "#865DE8",
+        backgroundColor: "#AA04FF",
         fill: false,
-        borderColor: "#865DE8",
-        borderWidth: 2
+        borderColor: "#AA04FF",
+        borderWidth: 1
       },
       {
         label: "2010–12",
         data: listTill12,
-        backgroundColor: "#FF04AD",
+        backgroundColor: "#IIIIII",
         fill: false,
-        borderColor: "#FF04AD",
-        borderWidth: 2
+        borderColor: "#IIIIII",
+        borderWidth: 1
       }
     ]
   },
@@ -159,3 +160,59 @@ var homicidesChart = new Chart(ctx, {
     }
   }
 });
+
+// --------------------- graph 3 --------------------------------- //
+// display graph on screen
+
+let canvas3 = document.createElement("canvas");
+canvas3.id = "graphUnderH1";
+document.getElementsByTagName("h1")[0].appendChild(canvas3);
+
+// data from API
+
+var dataPoints = [];
+$.getJSON(
+  "https://canvasjs.com/services/data/datapoints.php?xstart=1&ystart=10&length=10&type=json",
+  function(data) {
+    $.each(data, function(key, value) {
+      dataPoints.push({ x: value[0], y: parseInt(value[1]) });
+    });
+    chart = new CanvasJS.Chart("chartContainer", {
+      title: {
+        text: "Live Chart with dataPoints from External JSON"
+      },
+      data: [
+        {
+          type: "line",
+          dataPoints: dataPoints
+        }
+      ]
+    });
+    chart.render();
+    updateChart();
+  }
+);
+
+// gets data from JSON and adds it to dataPoints
+
+function updateChart() {
+  $.getJSON(
+    "https://canvasjs.com/services/data/datapoints.php?xstart=" +
+      (dataPoints.length + 1) +
+      "&ystart=" +
+      dataPoints[dataPoints.length - 1].y +
+      "&length=1&type=json",
+    function(data) {
+      $.each(data, function(key, value) {
+        dataPoints.push({
+          x: parseInt(value[0]),
+          y: parseInt(value[1])
+        });
+      });
+      chart.render();
+      setTimeout(function() {
+        updateChart();
+      }, 1000);
+    }
+  );
+}
